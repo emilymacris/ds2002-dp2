@@ -6,6 +6,11 @@ from bson.json_util import dumps
 import os
 import json
 
+#remember to use MONGO-ATLAS to connect to shell
+
+
+
+
 MONGOPASS = os.getenv('MONGOPASS')
 uri = "mongodb+srv://cluster0.pnxzwgz.mongodb.net/"
 client = MongoClient(uri, username='nmagee', password=MONGOPASS, connectTimeoutMS=200, retryWrites=True)
@@ -24,7 +29,7 @@ for (root, dirs, file) in os.walk(path):
             except Exception as e:
                 print(file, "has an error", e)
                 continue
-            if isinstance(file_data, list):
+            if isinstance(file_data, list):gi
                 collection.insert_many(file_data)  
             else:
                 collection.insert_one(file_data)
