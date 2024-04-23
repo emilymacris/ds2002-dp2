@@ -20,25 +20,39 @@ collection = db.jsondocs
 # return RECORDS IMPORTED OK
 # GOOD RECORDS NOT IMPORTED - like if one in file ?
 # how many records were corrupted 
-# 
 
 
 path = "."
+
+complete_imported = 0
+complete_notimported = 0
+corrupted = 0
+
 
 for (root, dirs, file) in os.walk(path):
     for f in file:
         with open(f) as file:
             try:
                 file_data = json.load(file)
+                for docs in file:
+                    complete_imported +=1 
             except Exception as e:
                 print(file, "has an error", e)
                 continue
+                for docs in file:
+                    try: 
+                        file_data = json.load(file)
+                        complete_notimported +=1
+                    except Exception as e2:
+                        print(file, "collection", i, "has an error", e2)
+                        corrupted +=1
+                        continue
             if isinstance(file_data, list):
                 collection.insert_many(file_data)  
             else:
                 collection.insert_one(file_data)
 
-
+print(complete_imported, complete_notimported, corrupted)
 
 # assuming you have defined a connection to your db and collection already:
 
