@@ -29,9 +29,24 @@ for (root, dirs, files) in os.walk(path):
                     for import_docs in file_data:
                         complete_imported+=1
             except Exception as e:
-                print(f'exception: {e},{f}') # print file 39    
+                print(f'exception: {e},{f}') # print file 39
+                # for docs in f:
+                #     try:
+                #         non_corrupted_files = json.load(docs) 
+                #         complete_nonimported +=1
+                #     except Exception as e:
+                #         corrupted+=1
+                #     continue
                 continue
-        
+        # if isinstance(file_data, list):
+        #     collection.insert_many(file_data)
+        #     for import_docs in file_data:
+        #         complete_imported+=1
+        # else:
+        #     collection.insert_one(file_data)
+        #     complete_imported+=1
+
+#print(complete_imported)
 print(f'complete imported {complete_imported}')
 print('5 documents were complete but not imported')
 print('1 document was corrupted')
